@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/navigation_new_released"
-        android:name="demo.bookssample.ui.NewReleasedFragment"
+        android:name="demo.bookssample.ui.newreleased.NewReleasedFragment"
         android:label="NewReleasedFragment" >
         <action
             android:id="@+id/action_newReleasedFragment_to_bookDetailsFragment"
@@ -13,7 +13,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_books"
-        android:name="demo.bookssample.ui.SearchBooksFragment"
+        android:name="demo.bookssample.ui.search.SearchBooksFragment"
         android:label="SearchBooksFragment" >
     </fragment>
 
@@ -27,6 +27,6 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_settings"
-        android:name="demo.bookssample.ui.SettingsFragment"
+        android:name="demo.bookssample.ui.settings.SettingsFragment"
         android:label="SettingsFragment" />
 </navigation>

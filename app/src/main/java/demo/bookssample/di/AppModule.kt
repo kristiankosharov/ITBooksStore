@@ -24,17 +24,26 @@ import demo.bookssample.api.BooksService
 import demo.bookssample.db.BooksDao
 import demo.bookssample.db.BooksDb
 import demo.bookssample.util.LiveDataCallAdapterFactory
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-@Module()
+
+
+@Module(includes = [ViewModelModule::class])
 class AppModule {
     @Singleton
     @Provides
     fun provideRetrofit(): Retrofit {
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
+        val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
+
         return Retrofit.Builder()
                 .baseUrl("https://api.itbook.store/1.0/")
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(LiveDataCallAdapterFactory())
                 .build()

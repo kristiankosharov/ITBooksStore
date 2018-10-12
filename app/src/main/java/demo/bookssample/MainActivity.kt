@@ -1,18 +1,14 @@
 package demo.bookssample
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
+import dagger.android.support.DaggerAppCompatActivity
 import demo.bookssample.databinding.ActivityMainBinding
 import demo.bookssample.di.Injectable
 
-class MainActivity : AppCompatActivity(), Injectable {
-
-
-    //https://api.itbook.store/
-
+class MainActivity : DaggerAppCompatActivity(), Injectable {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,4 +1,4 @@
-package demo.bookssample.ui
+package demo.bookssample.ui.settings
 
 import android.os.Bundle
 import android.view.LayoutInflater
