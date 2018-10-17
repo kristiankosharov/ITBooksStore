@@ -3,7 +3,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'kotlin-allopen'
 apply plugin: 'kotlin-android-extensions'
+
+allOpen {
+    // allows mocking for classes w/o directly opening them for release builds
+    annotation 'demo.booksample.OpenClass'
+}
 
 android {
     compileSdkVersion 28
@@ -13,7 +19,8 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "demo.bookssample.ITBooksRunner"
+//        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
     }
@@ -26,11 +33,20 @@ android {
     dataBinding {
         enabled = true
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+kapt {
+    generateStubs = true
 }
 
 dependencies {
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
     kapt "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
+    kapt "androidx.databinding:databinding-compiler:3.2.0"
     implementation "android.arch.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
     implementation "android.arch.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
     implementation "android.arch.work:work-runtime-ktx:$rootProject.workVersion"
@@ -68,14 +84,29 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
 
     // Testing dependencies
+    // ANDROID TESTING
     androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$rootProject.espressoVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
     androidTestImplementation "androidx.test.espresso:espresso-intents:$rootProject.espressoVersion"
     androidTestImplementation "androidx.test.uiautomator:uiautomator:$rootProject.uiAutomatorVersion"
+    androidTestImplementation 'org.mockito:mockito-android:2.8.47'
+    androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
+    implementation 'androidx.test:runner:1.1.0-beta02'
 
+    // UNIT TESTING
+//    testImplementation "org.mockito:mockito-core:2.23.0"
+    testImplementation 'org.mockito:mockito-inline:2.23.0'
     testImplementation "junit:junit:$rootProject.junitVersion"
+    testImplementation "com.squareup.okhttp3:mockwebserver:3.9.1"
+    testImplementation("android.arch.core:core-testing:1.1.1", {
+        exclude group: 'com.android.support', module: 'support-compat'
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-core-utils'
+    })
 
+    // Paging
+    implementation 'android.arch.paging:runtime:1.0.1'
 
     implementation "org.jetbrains.kotlin:kotlin-reflect:1.3.0-rc-116"
     implementation 'com.android.support:multidex:1.0.3'

@@ -8,6 +8,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
+@OpenForTesting
 open class AppExecutors(
         private val diskIO: Executor,
         private val networkIO: Executor,
