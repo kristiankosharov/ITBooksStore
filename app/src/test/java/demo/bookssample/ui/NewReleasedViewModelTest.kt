@@ -1,6 +1,9 @@
 package demo.bookssample.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.Observer
+import demo.bookssample.entity.BooksResponse
+import demo.bookssample.entity.Resource
 import demo.bookssample.mock
 import demo.bookssample.repository.BooksRepository
 import demo.bookssample.ui.newreleased.NewReleasedViewModel
@@ -26,8 +29,6 @@ class NewReleasedViewModelTest {
     @Before
     fun init() {
         MockitoAnnotations.initMocks(this)
-//        repository = BooksRepository(InstantAppExecutors(), dao, service)
-//        viewModel = NewReleasedViewModel(repository = repository)
     }
 
     @Test
@@ -35,8 +36,6 @@ class NewReleasedViewModelTest {
         assertThat(viewModel, notNullValue())
         assertThat(repository, notNullValue())
         assertThat(viewModel.books, notNullValue())
-//        val observer = mock<Observer<Resource<BooksResponse>>>()
-//        viewModel.books.observeForever(observer)
         Mockito.verify(repository, Mockito.times(1)).loadNewReleasedBooks()
     }
 
@@ -48,12 +47,12 @@ class NewReleasedViewModelTest {
 
     @Test
     fun newReleasedBooks() {
-//        val observer = Mockito.mock(Observer<Resource<BooksResponse>>)
-//        viewModel.books.observeForever(observer)
-//        Mockito.verifyNoMoreInteractions(observer)
-//        Mockito.verifyNoMoreInteractions(repository)
-//
-//        Mockito.verify(repository).loadNewReleasedBooks()
+        val observer = mock<Observer<Resource<BooksResponse>>>()
+        viewModel.books.observeForever(observer)
+        Mockito.verifyNoMoreInteractions(observer)
+        Mockito.verifyNoMoreInteractions(repository)
+
+        Mockito.verify(repository).loadNewReleasedBooks()
     }
 
 }

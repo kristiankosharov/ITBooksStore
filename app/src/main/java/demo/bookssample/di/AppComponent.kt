@@ -3,7 +3,7 @@ package demo.bookssample.di
 import android.app.Application
 import dagger.BindsInstance
 import dagger.Component
-import dagger.android.AndroidInjectionModule
+import dagger.android.support.AndroidSupportInjectionModule
 import demo.bookssample.BooksApp
 import javax.inject.Singleton
 
@@ -11,7 +11,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(
         modules = [
-            AndroidInjectionModule::class,
+            AndroidSupportInjectionModule::class,
             AppModule::class,
             MainActivityModule::class]
 )

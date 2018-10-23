@@ -51,6 +51,7 @@ class BooksRepositoryTest {
         verify(dao).getNewReleasedBooks()
     }
 
+    // shouldFetch should return false
     @Test
     fun dontGoToNetwork() {
         val dbData = MutableLiveData<List<Book>>()

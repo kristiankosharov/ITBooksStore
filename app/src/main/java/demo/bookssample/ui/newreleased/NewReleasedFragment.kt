@@ -24,7 +24,10 @@ class NewReleasedFragment : Fragment(), Injectable {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var booksViewModel: NewReleasedViewModel
+    private val booksViewModel: NewReleasedViewModel by lazy {
+        ViewModelProviders.of(this, viewModelFactory)
+                .get(NewReleasedViewModel::class.java)
+    }
     private var adapter by autoCleared<NewReleasedAdapter>()
     var binding by autoCleared<FragmentNewReleasedBinding>()
     @Inject
@@ -44,9 +47,6 @@ class NewReleasedFragment : Fragment(), Injectable {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        booksViewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(NewReleasedViewModel::class.java)
-
         val adapter = NewReleasedAdapter(dataBindingComponent, appExecutors)
         this.adapter = adapter
         binding.newReleasedBooks.adapter = adapter

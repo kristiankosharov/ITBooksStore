@@ -21,6 +21,6 @@ import android.app.Application
 /**
  * We use a separate App for tests to prevent initializing dependency injection.
  *
- * See [demo.bookssample.util.ITBooksRunner].
+ * See [demo.bookssample.ITBooksRunner].
  */
 class TestApp : Application()

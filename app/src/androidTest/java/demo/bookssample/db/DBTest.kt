@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
 
 
 abstract class DBTest {
-    @get:Rule
+    @Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Rule
